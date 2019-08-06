@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Compound Interest calculator</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/scripts.js"></script>
+</head>
+<body data-theme="light">
+  <screenContainer>
+    <screen>
+      <screenTitle>Compound Interest App</screenTitle>
+      <screenBody>
+        <div class="inputsContainer">
+          <div class="inputContainer">
+            <label>Solve For</label>
+            <select name="solveFor">
+              <option value="amount">Amount</option>
+              <option value="principal">Principal</option>
+              <option value="interestRate">Interest Rate</option>
+            </select>
+          </div>
+          <hr />
+          <div class="inputContainer">
+            <label>Principal</label>
+            <input type="text" name="principal" value="1000.00" />
+          </div>
+          <div class="inputContainer">
+            <label>Interest Rate</label>
+            <input type="text" name="interestRate" value=".025" />
+          </div>
+          <div class="inputContainer">
+            <label>Compound Duration</label>
+            <select name="compoundDuration">
+              <option value="daily">Daily</option>
+              <option value="weekly">Weekly</option>
+              <option value="monthly">Monthly</option>
+              <option value="yearly">Yearly</option>
+            </select>
+          </div>
+          <div class="inputContainer">
+            <label>Periods</label>
+            <input type="text" name="periods" value="365" />
+          </div>
+          <hr />
+          <div class="inputContainer">
+            <label>Amount</label>
+            <input type="text" name="amount" value="1151.21" />
+          </div>
+        </div>
+      </screenBody>
+    </screen>
+  </screenContainer>
+</body>
+</html>
