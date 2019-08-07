@@ -3,14 +3,44 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Compound Interest calculator</title>
+  <title>Compound Interest Calculator</title>
   <link rel="stylesheet" href="css/style.css">
   <script src="js/scripts.js"></script>
+  <!-- PWA -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Enins - Physical Inventory">
+  <meta name="description" content="A tool to perform physical inventories" />
+  <meta name="theme-color" content="#F87676" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <link rel="manifest" href="/manifest.json">
+
+  <link rel="apple-touch-icon" sizes="57x57" href="images/icons/icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="images/icons/icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="images/icons/icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="images/icons/icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="167x167" href="images/icons/icon-167x167.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="images/icons/icon-180x180.png">
+
+  <link rel="icon" type="image/png" sizes="16x16" href="images/icons/icon-16x16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="images/icons/icon-32x32.png">
+  <link rel="icon" sizes="128x128" href="images/icons/icon-128x128.png">
+  <link rel="icon" sizes="192x192" href="images/icons/icon-192x192.png">
+
+  <link rel="apple-touch-startup-image" href="images/splash/splash-640x1136.png" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="images/splash/splash-750x1294.png" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="images/splash/splash-1242x2148.png" media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="images/splash/splash-1125x2436.png" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="images/splash/splash-1536x2048.png" media="(min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="images/splash/splash-1668x2224.png" media="(min-device-width: 834px) and (max-device-width: 834px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="images/splash/splash-2048x2732.png" media="(min-device-width: 1024px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait)">
+  <!-- PWA -->
 </head>
 <body data-theme="light">
   <screenContainer>
     <screen>
-      <screenTitle>Compound Interest App</screenTitle>
+      <screenTitle>Compound Interest Calculator</screenTitle>
       <screenBody>
         <div class="inputsContainer">
           <div class="inputContainer">
@@ -24,33 +54,42 @@
           <hr />
           <div class="inputContainer">
             <label>Principal</label>
-            <input type="text" name="principal" value="1000.00" />
+            <input type="text" name="principal" value="" />
+          </div>
+          <div class="inputContainer">
+            <label>Amount</label>
+            <input type="text" name="amount" value="" />
           </div>
           <div class="inputContainer">
             <label>Interest Rate</label>
-            <input type="text" name="interestRate" value=".025" />
+            <input type="text" name="interestRate" value="" />
           </div>
           <div class="inputContainer">
-            <label>Compound Duration</label>
-            <select name="compoundDuration">
+            <label>Compound</label>
+            <select name="compound">
               <option value="daily">Daily</option>
               <option value="weekly">Weekly</option>
-              <option value="monthly">Monthly</option>
+              <option value="monthly" selected>Monthly</option>
               <option value="yearly">Yearly</option>
             </select>
           </div>
           <div class="inputContainer">
-            <label>Periods</label>
-            <input type="text" name="periods" value="365" />
+            <label>Time</label>
+            <grid>
+              <input type="text" name="timeLength" value="" />
+              <select name="timePeriod">
+                <option value="days">Days</option>
+                <option value="weeks">Weeks</option>
+                <option value="months">Months</option>
+                <option value="years" selected>Years</option>
+              </select>
+            </grid>
           </div>
           <hr />
-          <div class="inputContainer">
-            <label>Amount</label>
-            <input type="text" name="amount" value="1151.21" />
-          </div>
         </div>
-      </screenBody>
-    </screen>
-  </screenContainer>
+      </div>
+    </screenBody>
+  </screen>
+</screenContainer>
 </body>
 </html>
