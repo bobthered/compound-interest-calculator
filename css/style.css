@@ -52,9 +52,6 @@
   outline: none;
   padding: 0;
 }
-html {
-  font-size: 16px;
-}
 html, body {
   height: 100%;
   width: 100%;
@@ -105,10 +102,12 @@ hr:after {
 .inputContainer.solveFor input{
   pointer-events: none;
 }
-input, select, textarea {
+input:not([type="checkbox"]), select, textarea, .switchContainer label {
   background-color: var( --color-screen-bg );
-  border-radius: var( --border-radius );
   box-shadow: var( --box-shadow-10 );
+}
+input:not([type="checkbox"]), select, textarea {
+  border-radius: var( --border-radius );
   display: flex;
   font-size: 1rem;
   height: 3rem;
@@ -128,6 +127,39 @@ label {
   font-size: .875rem;
   line-height: 1.3125rem;
   margin-bottom: .5rem;
+}
+.switchContainer input {
+  display: none;
+}
+.switchContainer label {
+  background: var( --color-background-contrast1 );
+  border-radius: 1.875rem;
+  display: flex;
+  height: 1.875rem;
+  margin: 0;
+  position: relative;
+  transition: background .3s;
+  width: 3.75rem;
+}
+.switchContainer label:after {
+  background: var( --color-white );
+  box-shadow: var( --box-shadow-10 );
+  border-radius: 100%;
+  content: '';
+  display: flex;
+  height: 1.875rem;
+  left: 0;
+  position: absolute;
+  transition: all .3s;
+  transform: translateX( 0 );
+  top: 0;
+  width: 1.875rem;
+}
+.switchContainer input:checked + label {
+  background: var( --color-main );
+}
+.switchContainer input:checked + label:after {
+  transform: translateX( 100% );
 }
 /* ************************************************ */
 /*                    Forms End                     */
@@ -170,10 +202,18 @@ grid {
 /* ************************************************ */
 /*                 Typography Start                 */
 /* ************************************************ */
+html {
+  font-size: 16px;
+}
 * {
   color: var( --color-background-contrast0 );
   font-family: 'Poppins', sans-serif;
   font-weight: 500;
+}
+@media only screen and ( max-width: 375px ) {
+  html {
+    font-size: 14px;
+  }
 }
 /* ************************************************ */
 /*                  Typography End                  */
@@ -199,8 +239,12 @@ screen {
   width: 100%;
 }
 screenTitle {
+  align-items: center;
   background: var( --color-background-contrast3 );
   box-shadow: 0 -1px 0 0 inset var( --color-background-contrast2 );
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   font-size: 1.25rem;
   line-height: 1.875rem;
   padding: var( --base-unit );

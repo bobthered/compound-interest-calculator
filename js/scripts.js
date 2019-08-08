@@ -15,10 +15,12 @@
   let
   qsAmount,
   qsCompound,
+  qsDarkMode,
   qsInputContainers,
   qsInterestRate,
   qsInterestType,
   qsPrincipal,
+  qsScreenBody,
   qsSolveFor,
   qsTimeLength,
   qsTimePeriod,
@@ -97,7 +99,7 @@
           if ( interestType == 'percent' ) {
             interestFactor = 100;
           }
-          qsInterestRate.value = Math.round( numberOfCompounds * ( Math.pow( amount / principal, 1 / numberOfCompounds / timeLength ) - 1 ) * 1000 * interestFactor ) / 1000; 
+          qsInterestRate.value = Math.round( numberOfCompounds * ( Math.pow( amount / principal, 1 / numberOfCompounds / timeLength ) - 1 ) * 1000 * interestFactor ) / 1000;
           break;
         case 'principal'    : qsPrincipal.value    = Math.round( amount / Math.pow( 1 + interestRate / numberOfCompounds, numberOfCompounds * timeLength ) * 100 ) / 100; break;
       }
@@ -107,6 +109,7 @@
     setQuerySelectors();
     setListeners();
     reorderInputs();
+    updateTheme();
   }
   const normalizeTimePeriod = () => {
     const timeLength = parseInt( qsTimeLength.value );
@@ -131,16 +134,27 @@
     if ( solveFor === undefined ) {
       solveFor = qsSolveFor.value;
     }
-    document.querySelectorAll( 'input, select' ).forEach( input => {
+    qsScreenBody.querySelectorAll( 'input, select' ).forEach( input => {
       input.closest( '.inputContainer' ).classList.remove( 'solveFor' );
       input.setAttribute( 'tabIndex', 1 );
     } );
     const qsInputSolveFor = document.querySelector( `*[name="${solveFor}"]` );
     qsInputSolveFor.closest( '.inputContainer' ).classList.add( 'solveFor' );
-    qsInputSolveFor.setAttribute( 'tabIndex', 2 );
+    qsInputSolveFor.closest( '.inputContainer' ).querySelectorAll( 'input, select' ).forEach( input => {
+      input.setAttribute( 'tabIndex', 2 );
+    } );
+  }
+  const setDarkMode = darkMode => {
+    localStorage.setItem( 'darkMode', darkMode );
   }
   const setListeners = () => {
+    qsDarkMode.addEventListener( 'change', e => {
+      console.log( e.target.checked );
+      setDarkMode( e.target.checked );
+      updateTheme();
+    } );
     qsSolveFor.addEventListener( 'change', e => {
+      console.log( 'input change' );
       solveFor = e.target.value;
       reorderInputs();
       calculate();
@@ -157,13 +171,22 @@
   const setQuerySelectors = () => {
     qsAmount          = document.querySelector( '*[name="amount"]' );
     qsCompound        = document.querySelector( '*[name="compound"]' );
-    qsInputs          = document.querySelectorAll( 'input, select:not(:first-child)' );
+    qsDarkMode        = document.querySelector( '#switch--darkMode' );
+    qsInputs          = document.querySelectorAll( 'input:not(#switch--darkMode), select:not(:first-child)' );
     qsInterestRate    = document.querySelector( '*[name="interestRate"]' );
     qsInterestType    = document.querySelector( '*[name="interestType"]' );
     qsPrincipal       = document.querySelector( '*[name="principal"]' );
+    qsScreenBody      = document.querySelector( 'screenBody' );
     qsSolveFor        = document.querySelector( '*[name="solveFor"]' );
     qsTimeLength      = document.querySelector( '*[name="timeLength"]' );
     qsTimePeriod      = document.querySelector( '*[name="timePeriod"]' );
+  }
+  const updateTheme = () => {
+    const darkMode = localStorage.getItem( 'darkMode' );
+    const theme = ( darkMode === 'true' ? 'dark' : 'light' );
+    console.log( {'darkMode': darkMode, 'theme' : theme} );
+    document.body.setAttribute( 'data-theme', theme );
+    qsDarkMode.checked = ( darkMode === 'true' ? true : false );
   }
   const validInputs = obj => {
     let valid = true;
