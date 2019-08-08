@@ -8,6 +8,7 @@
   --color-black-5        : #0D0D0D;
   --color-black-10       : #1A1A1A;
   --color-black-13       : #202020;
+  --color-black-20       : #333333;
   --color-black-50       : #808080;
   --color-black-87       : #DEDEDE;
   --color-black-90       : #E5E5E5;
@@ -22,22 +23,25 @@
 /*                   Themes Start                   */
 /* ************************************************ */
 [data-theme='light'] {
-  --box-shadow-10              : var( --box-shadow-sizing ) rgba( 0, 0, 0, .1 );
-  --box-shadow-20              : var( --box-shadow-sizing ) rgba( 0, 0, 0, .2 );
   --color-background-contrast0 : var( --color-black-13 );
   --color-background-contrast1 : var( --color-black-50 );
   --color-background-contrast2 : var( --color-black-90 );
   --color-background-contrast3 : var( --color-black-95 );
   --color-screen-bg            : var( --color-white );
+  --box-shadow-01              : var( --box-shadow-sizing ) rgba( 0, 0, 0, .1 );
+  --box-shadow-02              : var( --box-shadow-sizing ) rgba( 0, 0, 0, .2 );
+  --box-shadow-03              : var( --box-shadow-01 ), inset 0 -1px 0 var( --color-main );
 }
 [data-theme='dark'] {
-  --box-shadow-10              : var( --box-shadow-sizing ) rgba( 255, 255, 255, .1 );
-  --box-shadow-20              : var( --box-shadow-sizing ) rgba( 255, 255, 255, .2 );
+  --color-background           : var( --color-black );
   --color-background-contrast0 : var( --color-black-87 );
   --color-background-contrast1 : var( --color-black-50 );
-  --color-background-contrast2 : var( --color-black-10 );
+  --color-background-contrast2 : var( --color-black-20 );
   --color-background-contrast3 : var( --color-black-5 );
   --color-screen-bg            : var( --color-black-13 );
+  --box-shadow-01              : 0 0 0 2px var( --color-background-contrast2 );
+  --box-shadow-02              : var( --box-shadow-sizing ) rgba( 0, 0, 0, .2 );
+  --box-shadow-03              : 0 0 0 2px var( --color-main );
 }
 /* ************************************************ */
 /*                    Themes End                    */
@@ -110,7 +114,7 @@ hr:after {
 }
 input:not([type="checkbox"]), select, textarea, .switchContainer label {
   background-color: var( --color-screen-bg );
-  box-shadow: var( --box-shadow-10 );
+  box-shadow: var( --box-shadow-01 );
 }
 input:not([type="checkbox"]), select, textarea {
   border-radius: var( --border-radius );
@@ -125,8 +129,8 @@ input:not([type="checkbox"]), select, textarea {
   -webkit-appearance: none;
 }
 input:focus, select:focus, textarea:focus {
-  box-shadow: var( --box-shadow-10 ), inset 0 -1px 0 var( --color-main );
-  -webkit-box-shadow: var( --box-shadow-10 ), inset 0 -1px 0 var( --color-main );
+  box-shadow: var( --box-shadow-03 );
+  -webkit-box-shadow: var( --box-shadow-03 );
 }
 label {
   color: var( --color-background-contrast1 );
@@ -149,7 +153,7 @@ label {
 }
 .switchContainer label:after {
   background: var( --color-white );
-  box-shadow: var( --box-shadow-10 );
+  box-shadow: var( --box-shadow-01 );
   border-radius: 100%;
   content: '';
   display: flex;
@@ -238,7 +242,7 @@ screenContainer {
 }
 screen {
   background: var( --color-screen-bg );
-  box-shadow: var( --box-shadow-20 );
+  box-shadow: var( --box-shadow-02 );
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -266,6 +270,7 @@ screenBody {
 }
 @media only screen and ( min-width: 769px ) {
   screen {
+    max-height: 35rem;
     max-width: 75rem;
     width: 90vw;
   }
