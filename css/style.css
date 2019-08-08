@@ -171,6 +171,25 @@ label {
 .switchContainer input:checked + label:after {
   transform: translateX( 100% );
 }
+@media only screen and ( min-width: 769px ) {
+  .inputContainer.solveFor {
+    grid-column: 3 / 3;
+    grid-row: 1 / 5;
+    order: 4;
+  }
+    .inputGroupContainer {
+      padding: 0;
+    }
+  .inputGroupContainer:last-child {
+    display: grid;
+    grid-template-columns: 2fr calc( 2.5rem + 1px ) 2fr;
+    grid-template-rows: repeat( 4, 1fr );
+  }
+  .inputGroupContainer:last-child hr {
+    grid-column: 2 / 2;
+    grid-row: 1 / 5;
+  }
+}
 /* ************************************************ */
 /*                    Forms End                     */
 /* ************************************************ */
@@ -276,7 +295,8 @@ screenBody {
   }
   screenBody {
     display: grid;
-    grid-template-columns: 1fr calc( 2.5rem + 1px ) 3fr;
+    grid-template-columns: 8.5rem calc( 2.5rem + 1px ) 3fr;
+    padding: var( --base-unit );
   }
 }
 @media only screen and ( min-height: 1025px ) {
