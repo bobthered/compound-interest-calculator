@@ -62,7 +62,13 @@
           </div>
           <div class="inputContainer">
             <label>Interest Rate</label>
-            <input type="text" name="interestRate" value="" />
+            <grid>
+              <input type="text" name="interestRate" value="" />
+              <select name="interestType">
+                <option value="percent">Percent</option>
+                <option value="decimal">Decimal</option>
+              </select>
+            </grid>
           </div>
           <div class="inputContainer">
             <label>Compound</label>

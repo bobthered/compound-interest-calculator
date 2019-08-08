@@ -102,8 +102,7 @@ hr:after {
 .inputContainer.solveFor {
   order: 4;
 }
-.inputContainer.solveFor input,
-.inputContainer.solveFor select {
+.inputContainer.solveFor input{
   pointer-events: none;
 }
 input, select, textarea {

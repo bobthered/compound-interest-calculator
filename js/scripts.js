@@ -1,9 +1,23 @@
 (() => {
+  if (window.Element && !Element.prototype.closest) {
+    Element.prototype.closest =
+    function(s) {
+      var matches = (this.document || this.ownerDocument).querySelectorAll(s),
+      i,
+      el = this;
+      do {
+        i = matches.length;
+        while (--i >= 0 && matches.item(i) !== el) {};
+      } while ((i < 0) && (el = el.parentElement));
+      return el;
+    };
+  }
   let
   qsAmount,
   qsCompound,
   qsInputContainers,
   qsInterestRate,
+  qsInterestType,
   qsPrincipal,
   qsSolveFor,
   qsTimeLength,
@@ -12,7 +26,8 @@
   const calculate = () => {
     const amount       = parseFloat( qsAmount.value );
     const compound     = qsCompound.value;
-    const interestRate = parseFloat( qsInterestRate.value );
+    let interestRate   = parseFloat( qsInterestRate.value );
+    const interestType = qsInterestType.value;
     const principal    = parseFloat( qsPrincipal.value );
     const timePeriod   = qsTimePeriod.value;
     let timeLength     = parseFloat( qsTimeLength.value );
@@ -20,6 +35,9 @@
     let validInputsObj = { amount, interestRate, principal, timeLength };
     delete validInputsObj[solveFor];
     if ( validInputs( validInputsObj ) ) {
+      if ( interestType == 'percent' ) {
+        interestRate = interestRate / 100;
+      }
       switch( compound ) {
         case 'daily':
         switch( timePeriod ) {
@@ -72,19 +90,15 @@
         }
         break;
       }
-      let obj            = {
-        amount,
-        compound,
-        interestRate,
-        numberOfCompounds,
-        principal,
-        timeLength,
-        timePeriod
-      }
-      delete obj[solveFor];
       switch ( solveFor ) {
         case 'amount'       : qsAmount.value       = Math.round( principal * Math.pow( 1 + interestRate / numberOfCompounds, numberOfCompounds * timeLength ) * 100 ) / 100; break;
-        case 'interestRate' : qsInterestRate.value = Math.round( numberOfCompounds * ( Math.pow( amount / principal, 1 / numberOfCompounds / timeLength ) - 1 ) * 1000 ) / 1000; break;
+        case 'interestRate' :
+          let interestFactor = 1;
+          if ( interestType == 'percent' ) {
+            interestFactor = 100;
+          }
+          qsInterestRate.value = Math.round( numberOfCompounds * ( Math.pow( amount / principal, 1 / numberOfCompounds / timeLength ) - 1 ) * 1000 * interestFactor ) / 1000; 
+          break;
         case 'principal'    : qsPrincipal.value    = Math.round( amount / Math.pow( 1 + interestRate / numberOfCompounds, numberOfCompounds * timeLength ) * 100 ) / 100; break;
       }
     }
@@ -118,11 +132,11 @@
       solveFor = qsSolveFor.value;
     }
     document.querySelectorAll( 'input, select' ).forEach( input => {
-      input.parentNode.classList.remove( 'solveFor' );
+      input.closest( '.inputContainer' ).classList.remove( 'solveFor' );
       input.setAttribute( 'tabIndex', 1 );
     } );
     const qsInputSolveFor = document.querySelector( `*[name="${solveFor}"]` );
-    qsInputSolveFor.parentNode.classList.add( 'solveFor' );
+    qsInputSolveFor.closest( '.inputContainer' ).classList.add( 'solveFor' );
     qsInputSolveFor.setAttribute( 'tabIndex', 2 );
   }
   const setListeners = () => {
@@ -145,6 +159,7 @@
     qsCompound        = document.querySelector( '*[name="compound"]' );
     qsInputs          = document.querySelectorAll( 'input, select:not(:first-child)' );
     qsInterestRate    = document.querySelector( '*[name="interestRate"]' );
+    qsInterestType    = document.querySelector( '*[name="interestType"]' );
     qsPrincipal       = document.querySelector( '*[name="principal"]' );
     qsSolveFor        = document.querySelector( '*[name="solveFor"]' );
     qsTimeLength      = document.querySelector( '*[name="timeLength"]' );
